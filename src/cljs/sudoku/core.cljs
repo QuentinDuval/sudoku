@@ -12,6 +12,7 @@
 
 
 ;; Game initialization
+;; TODO - This might generate invalid sudoku board!
 
 (defn rand-values
   []
@@ -45,6 +46,7 @@
 
 
 ;; Drawing the game
+;; TODO - Try different colors based on which square it is
 
 (defn rect-cell
   "Draw a rectangle cell on the screen"
@@ -53,7 +55,7 @@
    {:x (+ 0.05 x) :width 0.9
     :y (+ 0.05 y) :height 0.9
     :fill "white"
-    :stroke-width 0.03
+    :stroke-width 0.025
     :on-click #(println "titi")
     :stroke "black"}
    ])
@@ -69,7 +71,6 @@
     :font-size 0.6}
    (str (get (:matrix @app-state) [x y]))
    ])
-
 
 (defn render-board
   "Render the board of the sudoku"
