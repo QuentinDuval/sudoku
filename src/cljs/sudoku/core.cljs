@@ -40,13 +40,20 @@
 
 
 ;; Game state
+;; TODO - Plug this with modal window
 
 (defonce app-state
-  (atom {:matrix (init-matrix)}))
+  (atom
+    {:matrix (init-matrix)
+     :selecting false
+     }))
 
 
 ;; Drawing the game
 ;; TODO - Try different colors based on which square it is
+;; TODO - Pop up a window:
+;; http://stackoverflow.com/questions/35709165/how-to-do-modal-dialogs-with-om-or-reagent-and-bootstrap
+;;
 
 (defn rect-cell
   "Draw a rectangle cell on the screen"
