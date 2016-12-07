@@ -52,8 +52,9 @@
   [:rect.cell
    {:x (+ 0.05 x) :width 0.9
     :y (+ 0.05 y) :height 0.9
-    :fill "none"
-    :stroke-width 0.02
+    :fill "white"
+    :stroke-width 0.03
+    :on-click #(println "titi")
     :stroke "black"}
    ])
 
@@ -64,28 +65,29 @@
    {:x (+ 0.5 x) :width 1
     :y (+ 0.72 y) :height 1
     :text-anchor "middle"
+    :on-click #(println "toto")
     :font-size 0.6}
    (str (get (:matrix @app-state) [x y]))
    ])
 
 
 (defn render-board
+  "Render the board of the sudoku"
   []
   (into
     [:svg.board
      {:view-box (str "0 0 " board-width " " board-height)
-      :style {:max-height "500px"
-              ;;:background-color "grey"
-              }}]
+      :shape-rendering "auto"
+      :style {:max-height "500px"}}]
     (for [i (range board-width)
           j (range board-height)]
       [:g
        [rect-cell i j]
-       [text-cell i j]
-       ])
-    ))
+       [text-cell i j]]
+      )))
 
 (defn sudoku
+  "Main rendering function"
   []
   [:div
    [:h1 "Sudoku"]
