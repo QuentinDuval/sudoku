@@ -8,17 +8,33 @@
 
 (def board-width 9)
 (def board-height 9)
+(def fill-cell-nb 12)
 
 
 ;; Game initialization
+
+(defn rand-values
+  []
+  (concat
+    (repeatedly fill-cell-nb #(+ 1 (rand-int 9)))
+    (repeat 0)
+    ))
+
+(defn rand-positions
+  []
+  (shuffle
+    (for [i (range board-width)
+          j (range board-height)]
+      [i j]
+      )))
 
 (defn init-matrix
   "Initialize the game matrix"
   []
   (into {}
-    (for [i (range board-width)
-          j (range board-height)]
-      [[i j] 0]
+    (map vector
+      (rand-positions)
+      (rand-values)
       )))
 
 
@@ -58,7 +74,9 @@
   (into
     [:svg.board
      {:view-box (str "0 0 " board-width " " board-height)
-      :style {:max-height "500px"}}]
+      :style {:max-height "500px"
+              ;;:background-color "grey"
+              }}]
     (for [i (range board-width)
           j (range board-height)]
       [:g
