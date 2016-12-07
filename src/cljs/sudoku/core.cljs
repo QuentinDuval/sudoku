@@ -5,7 +5,10 @@
 
 (defonce app-state (atom {:text "Hello Chestnut!"}))
 
-(defn greeting []
+(defn sudoku
+  []
   [:h1 (:text @app-state)])
 
-(reagent/render [greeting] (js/document.getElementById "app"))
+(reagent/render
+  [sudoku]
+  (js/document.getElementById "app"))
