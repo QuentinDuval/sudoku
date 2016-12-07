@@ -4,9 +4,13 @@
 
 (enable-console-print!)
 
+;; Contants
+
 (def board-width 9)
 (def board-height 9)
 
+
+;; Game initialization
 
 (defn init-matrix
   "Initialize the game matrix"
@@ -17,9 +21,14 @@
       [[i j] 0]
       )))
 
+
+;; Game state
+
 (defonce app-state
   (atom {:matrix (init-matrix)}))
 
+
+;; Drawing the game
 
 (defn rect-cell
   "Draw a rectangle cell on the screen"
@@ -28,8 +37,19 @@
    {:x (+ 0.05 x) :width 0.9
     :y (+ 0.05 y) :height 0.9
     :fill "none"
-    :stroke-width 0.01
+    :stroke-width 0.02
     :stroke "black"}
+   ])
+
+(defn text-cell
+  "The text to fill inside the rectangle"
+  [x y]
+  [:text
+   {:x (+ 0.5 x) :width 1
+    :y (+ 0.72 y) :height 1
+    :text-anchor "middle"
+    :font-size 0.6}
+   (str (get (:matrix @app-state) [x y]))
    ])
 
 
@@ -41,8 +61,11 @@
       :style {:max-height "500px"}}]
     (for [i (range board-width)
           j (range board-height)]
-      [rect-cell i j]
-      )))
+      [:g
+       [rect-cell i j]
+       [text-cell i j]
+       ])
+    ))
 
 (defn sudoku
   []
